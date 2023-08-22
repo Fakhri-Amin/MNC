@@ -11,11 +11,13 @@ public class ContainerCounter : BaseCounter
 
     public override void Interact(Player player)
     {
-        if (!player.HasProductObject())
+        int currentProduct = GetComponent<ProductStockUI>().currentStock;
+        if (!player.HasProductObject() && currentProduct >= 1)
         {
             // Player is not caryying anything
             ProductObject.SpawnProductObject(productObjectSO, player);
             OnPlayerGrabbedObject?.Invoke(this, EventArgs.Empty);
+            GetComponent<ProductStockUI>().ReduceStock();
         }
     }
 }
