@@ -25,9 +25,4 @@ public class ProductStockUI : MonoBehaviour
         currentStock--;
         UpdateUIStock();
     }
-
-    public void bruh()
-    {
-        Debug.Log("Masuk");
-    }
 }
