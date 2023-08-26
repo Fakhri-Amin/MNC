@@ -4441,6 +4441,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   iconProduct: {fileID: 1424231048}
   icon: {fileID: 792958207}
+  iProduct:
+  - {fileID: 11400000, guid: 257c297a9e5f5ba49be428499842e1d2, type: 2}
+  - {fileID: 11400000, guid: cf651d7d678349740a247d07fdf7759f, type: 2}
+  - {fileID: 11400000, guid: 2bb57dcbb4fdea34f809f8c7db664783, type: 2}
+  - {fileID: 11400000, guid: a77d31ac85de4b84db390981edfe0e59, type: 2}
+  - {fileID: 11400000, guid: 6a85509e14cb773479684607d4b44977, type: 2}
+  - {fileID: 11400000, guid: d2df0ff02cd73d340891f092ba8829aa, type: 2}
 --- !u!1 &746547564
 GameObject:
   m_ObjectHideFlags: 0
