@@ -9,6 +9,7 @@ public class DeliveryManager : MonoBehaviour
     public event EventHandler OnRecipeCompeleted;
     public event EventHandler OnRecipeSuccess;
     public event EventHandler OnRecipeFailed;
+    public event EventHandler OnCustomerSpawned;
 
     public static DeliveryManager Instance { get; private set; }
     [SerializeField] private RecipeListSO recipeListSO;
@@ -33,6 +34,7 @@ public class DeliveryManager : MonoBehaviour
 
             if (GameManager.Instance.IsGamePlaying() && waitingRecipeSOList.Count < waitingRecipeMax)
             {
+                OnCustomerSpawned?.Invoke(this, EventArgs.Empty);
                 RecipeSO waitingRecipeSO = recipeListSO.recipeSOList[UnityEngine.Random.Range(0, recipeListSO.recipeSOList.Count)];
                 waitingRecipeSOList.Add(waitingRecipeSO);
                 OnRecipeSpawned?.Invoke(this, EventArgs.Empty);
