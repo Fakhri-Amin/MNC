@@ -5,23 +5,37 @@ using UnityEngine.UI;
 
 public class ManaMovement : MonoBehaviour
 {
-    public Image manaBar;
-    public int manaAmount = 1000;
+    [SerializeField] private Image manaBar;
+    [SerializeField] private int manaAmountMax = 100;
+
+    private float manaAmount;
+
+    private void Start()
+    {
+        manaAmount = manaAmountMax;
+    }
+
 
     private void Update()
     {
         //Debug.Log(manaAmount);
     }
-    public void manaPlayerMove(int mana)
+
+    public void DecreasePlayerMana()
     {
-        manaAmount -= mana;
-        manaBar.fillAmount = manaAmount / 1000f;
+        manaAmount -= Time.deltaTime;
+        manaBar.fillAmount = manaAmount / manaAmountMax;
     }
 
-    public void playerSleep(int manaSleep)
+    public void IncreasePlayerSleepAmount(int manaSleep)
     {
         manaAmount += manaSleep;
-        manaAmount = Mathf.Clamp(manaAmount, 0, 1000);
-        manaBar.fillAmount = manaAmount / 1000f;
+        manaAmount = Mathf.Clamp(manaAmount, 0, manaAmountMax);
+        manaBar.fillAmount = manaAmount / manaAmountMax;
+    }
+
+    public float GetPlayerManaAmount()
+    {
+        return manaAmount;
     }
 }

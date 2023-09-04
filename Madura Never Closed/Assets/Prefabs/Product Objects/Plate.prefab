@@ -426,6 +426,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bread (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3284528224358046309, guid: 1164f228a84294b4892ecc4c03b50c06,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5427877309920803943, guid: 1164f228a84294b4892ecc4c03b50c06,
         type: 3}
       propertyPath: m_RootOrder
@@ -500,6 +505,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MeatPattyUncooked
+      objectReference: {fileID: 0}
+    - target: {fileID: 3284528224358046309, guid: 8e1d74f17eb3e00478ad6cc3199e0f2a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5427877309920803943, guid: 8e1d74f17eb3e00478ad6cc3199e0f2a,
         type: 3}
@@ -576,6 +586,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tomato
       objectReference: {fileID: 0}
+    - target: {fileID: 3284528224358046309, guid: acb15b11de194d043b6e005af697c66a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5427877309920803943, guid: acb15b11de194d043b6e005af697c66a,
         type: 3}
       propertyPath: m_RootOrder
@@ -651,6 +666,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cabbage
       objectReference: {fileID: 0}
+    - target: {fileID: 3284528224358046309, guid: 141b263fa78e34f4891b1f5a12b3fa97,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5427877309920803943, guid: 141b263fa78e34f4891b1f5a12b3fa97,
         type: 3}
       propertyPath: m_RootOrder
@@ -725,6 +745,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CheeseBlock
+      objectReference: {fileID: 0}
+    - target: {fileID: 3284528224358046309, guid: 02f622f8424d09945ac59fd8996fcf0f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5427877309920803943, guid: 02f622f8424d09945ac59fd8996fcf0f,
         type: 3}

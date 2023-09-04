@@ -15,3 +15,4 @@ MonoBehaviour:
   productObjectSOList:
   - {fileID: 11400000, guid: 7897c82346f46b847aa0acc96972cfe6, type: 2}
   recipeName: Preman
+  prefab: {fileID: 6475539167661361592, guid: 2b924304441dd1245a56abf7a108c95c, type: 3}

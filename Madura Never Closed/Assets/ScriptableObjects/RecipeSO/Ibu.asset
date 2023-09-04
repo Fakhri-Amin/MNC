@@ -19,3 +19,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7ddfb67c36d820a419ad5b79b57d29b2, type: 2}
   - {fileID: 11400000, guid: b67aee91f69014149abb4f3add1ac568, type: 2}
   recipeName: Ibu
+  prefab: {fileID: 6475539167661361592, guid: 2b924304441dd1245a56abf7a108c95c, type: 3}

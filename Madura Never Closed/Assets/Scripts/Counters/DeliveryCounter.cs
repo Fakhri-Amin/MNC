@@ -6,9 +6,12 @@ public class DeliveryCounter : BaseCounter
 {
     public static DeliveryCounter Instance;
 
+    private DeliveryManagerInCounter deliveryManagerInCounter;
+
     private void Awake()
     {
         Instance = this;
+        deliveryManagerInCounter = GetComponent<DeliveryManagerInCounter>();
     }
 
     public override void Interact(Player player)
@@ -19,7 +22,7 @@ public class DeliveryCounter : BaseCounter
             {
                 // Only accepts plates
 
-                DeliveryManager.Instance.DeliverRecipe(plateProductObject);
+                deliveryManagerInCounter.DeliverRecipe(plateProductObject);
 
                 player.GetProductObject().DestroySelf();
             }

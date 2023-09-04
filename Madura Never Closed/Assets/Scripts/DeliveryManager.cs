@@ -5,24 +5,40 @@ using UnityEngine;
 
 public class DeliveryManager : MonoBehaviour
 {
-    public event EventHandler OnRecipeSpawned;
-    public event EventHandler OnRecipeCompeleted;
+    public event EventHandler<OnRecipeSpawnedEventArgs> OnRecipeSpawned;
+    public class OnRecipeSpawnedEventArgs
+    {
+        public int counterNumber;
+    }
+    public event EventHandler<OnRecipeCompeletedEventArgs> OnRecipeCompeleted;
+    public class OnRecipeCompeletedEventArgs
+    {
+        public int counterNumber;
+    }
+
     public event EventHandler OnRecipeSuccess;
     public event EventHandler OnRecipeFailed;
     public event EventHandler OnCustomerSpawned;
 
     public static DeliveryManager Instance { get; private set; }
     [SerializeField] private RecipeListSO recipeListSO;
+    [SerializeField] private List<DeliveryManagerInCounter> deliveryManagerInCounterList;
+
     private List<RecipeSO> waitingRecipeSOList;
     private float spawnRecipeTimer;
-    private float spawnRecipeTimerMax = 4f;
-    private int waitingRecipeMax = 4;
+    private readonly float spawnRecipeTimerMax = 4f;
+
     private int successfulRecipeNumber;
+    private DeliveryManagerInCounter deliveryCounter;
 
     private void Awake()
     {
         Instance = this;
         waitingRecipeSOList = new List<RecipeSO>();
+        for (int i = 0; i < deliveryManagerInCounterList.Count; i++)
+        {
+            deliveryManagerInCounterList[i].SetCounterNumber(i + 1);
+        }
     }
 
     private void Update()
@@ -32,63 +48,35 @@ public class DeliveryManager : MonoBehaviour
         {
             spawnRecipeTimer = spawnRecipeTimerMax;
 
-            if (GameManager.Instance.IsGamePlaying() && waitingRecipeSOList.Count < waitingRecipeMax)
+            if (GameManager.Instance.IsGamePlaying() && waitingRecipeSOList.Count < deliveryManagerInCounterList.Count + 1 && CanSpawnCustomerOnDeliveryCounter())
             {
-                OnCustomerSpawned?.Invoke(this, EventArgs.Empty);
                 RecipeSO waitingRecipeSO = recipeListSO.recipeSOList[UnityEngine.Random.Range(0, recipeListSO.recipeSOList.Count)];
+                SpawnCustomerOnDeliveryCounter();
                 waitingRecipeSOList.Add(waitingRecipeSO);
-                OnRecipeSpawned?.Invoke(this, EventArgs.Empty);
+                OnRecipeSpawned?.Invoke(this, new OnRecipeSpawnedEventArgs
+                {
+                    counterNumber = deliveryCounter.GetCounterNumber()
+                });
             }
         }
     }
 
-    public void DeliverRecipe(PlateProductObject plateProductObject)
+    private bool CanSpawnCustomerOnDeliveryCounter()
     {
-        for (int i = 0; i < waitingRecipeSOList.Count; i++)
+        deliveryCounter = deliveryManagerInCounterList[UnityEngine.Random.Range(0, deliveryManagerInCounterList.Count)];
+        if (deliveryCounter.IsCustomerEmpty())
         {
-            RecipeSO waitingRecipeSO = waitingRecipeSOList[i];
-
-            if (waitingRecipeSO.productObjectSOList.Count == plateProductObject.GetProductObjectSOList().Count)
-            {
-                // Has the same number of ingredients
-                bool plateContentMatchesRecipe = true;
-
-                foreach (ProductObjectSO recipeProductObjectSO in waitingRecipeSO.productObjectSOList)
-                {
-                    // Cycling through all the ingredient in Recipe
-                    bool ingredientFound = false;
-                    foreach (ProductObjectSO plateProductObjectSO in plateProductObject.GetProductObjectSOList())
-                    {
-                        // Cycling through all the ingredient in Plate
-                        if (plateProductObjectSO == recipeProductObjectSO)
-                        {
-                            // Ingredient matches!
-                            ingredientFound = true;
-                            break;
-                        }
-                    }
-                    if (!ingredientFound)
-                    {
-                        // This Recipe ingredient was not found on the Plate
-                        plateContentMatchesRecipe = false;
-                    }
-                }
-
-                if (plateContentMatchesRecipe)
-                {
-                    // Player delivered the correct Recipe!
-                    waitingRecipeSOList.RemoveAt(i);
-                    successfulRecipeNumber++;
-                    OnRecipeCompeleted?.Invoke(this, EventArgs.Empty);
-                    OnRecipeSuccess?.Invoke(this, EventArgs.Empty);
-                    return;
-                }
-            }
+            return true;
         }
+        else
+        {
+            return false;
+        }
+    }
 
-        // No mathces found
-        // Player did not deliverd the Recipe
-        OnRecipeFailed?.Invoke(this, EventArgs.Empty);
+    private void SpawnCustomerOnDeliveryCounter()
+    {
+        deliveryCounter.SpawnCustomer();
     }
 
     public List<RecipeSO> GetWaitingRecipeSOList()
@@ -99,6 +87,34 @@ public class DeliveryManager : MonoBehaviour
     public int GetSuccessfulRecipeNumber()
     {
         return successfulRecipeNumber;
+    }
+
+    public void IncrementSuccessRecipeNumber()
+    {
+        successfulRecipeNumber++;
+    }
+
+    public void RemoveRecipeSOFromList(int index)
+    {
+        waitingRecipeSOList.RemoveAt(index);
+    }
+
+    public void FireOnRecipeSuccessEvent()
+    {
+        OnRecipeSuccess?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void FireOnRecipeFailedEvent()
+    {
+        OnRecipeFailed?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void FireOnDeliveryManagerCompletedEvent()
+    {
+        OnRecipeCompeleted?.Invoke(this, new OnRecipeCompeletedEventArgs
+        {
+            counterNumber = deliveryCounter.GetCounterNumber()
+        });
     }
 
 }

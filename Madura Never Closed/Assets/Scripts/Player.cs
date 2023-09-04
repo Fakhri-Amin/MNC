@@ -114,7 +114,7 @@ public class Player : MonoBehaviour, IProductObjectParent
         float playerHeight = 2f;
         bool canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDir, moveDistance);
 
-        if(GetComponent<ManaMovement>().manaAmount < 1)
+        if (GetComponent<ManaMovement>().GetPlayerManaAmount() < 1)
         {
             if (!canMove)
             {
@@ -149,11 +149,12 @@ public class Player : MonoBehaviour, IProductObjectParent
                 }
             }
         }
-        if (GetComponent<ManaMovement>().manaAmount > 0){
+        if (GetComponent<ManaMovement>().GetPlayerManaAmount() > 0)
+        {
             if (canMove)
             {
                 transform.position += moveDir * moveDistance;
-                GetComponent<ManaMovement>().manaPlayerMove(1);
+                GetComponent<ManaMovement>().DecreasePlayerMana();
             }
         }
 

@@ -8,6 +8,7 @@ using System;
 public class DeliveryResultUI : MonoBehaviour
 {
     private const string POPUP = "Popup";
+    [SerializeField] private DeliveryManagerInCounter deliveryManagerInCounter;
     [SerializeField] private Image backgroundImage;
     [SerializeField] private Image iconImage;
     [SerializeField] private TMP_Text messageText;
@@ -25,8 +26,8 @@ public class DeliveryResultUI : MonoBehaviour
 
     private void Start()
     {
-        DeliveryManager.Instance.OnRecipeSuccess += DeliveryManager_OnRecipeSuccess;
-        DeliveryManager.Instance.OnRecipeFailed += DeliveryManager_OnRecipeFailed;
+        deliveryManagerInCounter.OnRecipeSuccess += DeliveryManager_OnRecipeSuccess;
+        deliveryManagerInCounter.OnRecipeFailed += DeliveryManager_OnRecipeFailed;
 
         Hide();
     }

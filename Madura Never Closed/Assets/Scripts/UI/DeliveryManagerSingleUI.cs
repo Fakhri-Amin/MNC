@@ -7,6 +7,7 @@ using TMPro;
 public class DeliveryManagerSingleUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI recipeNameText;
+    [SerializeField] private TextMeshProUGUI counterNumberText;
     [SerializeField] private Transform iconContainer;
     [SerializeField] private Transform iconTemplate;
 
@@ -15,8 +16,9 @@ public class DeliveryManagerSingleUI : MonoBehaviour
         iconTemplate.gameObject.SetActive(false);
     }
 
-    public void SetRecipeSO(RecipeSO recipeSO)
+    public void SetRecipeSO(RecipeSO recipeSO, int counterNumber)
     {
+        counterNumberText.text = counterNumber.ToString();
         recipeNameText.text = recipeSO.recipeName;
 
         foreach (Transform child in iconContainer)
