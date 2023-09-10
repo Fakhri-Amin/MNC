@@ -5,17 +5,8 @@ using UnityEngine;
 
 public class DeliveryManager : MonoBehaviour
 {
-    public event EventHandler<OnRecipeSpawnedEventArgs> OnRecipeSpawned;
-    public class OnRecipeSpawnedEventArgs
-    {
-        public int counterNumber;
-    }
-    public event EventHandler<OnRecipeCompeletedEventArgs> OnRecipeCompeleted;
-    public class OnRecipeCompeletedEventArgs
-    {
-        public int counterNumber;
-    }
-
+    public event EventHandler OnRecipeSpawned;
+    public event EventHandler OnRecipeCompeleted;
     public event EventHandler OnRecipeSuccess;
     public event EventHandler OnRecipeFailed;
     public event EventHandler OnCustomerSpawned;
@@ -35,10 +26,6 @@ public class DeliveryManager : MonoBehaviour
     {
         Instance = this;
         waitingRecipeSOList = new List<RecipeSO>();
-        for (int i = 0; i < deliveryManagerInCounterList.Count; i++)
-        {
-            deliveryManagerInCounterList[i].SetCounterNumber(i + 1);
-        }
     }
 
     private void Update()
@@ -51,12 +38,9 @@ public class DeliveryManager : MonoBehaviour
             if (GameManager.Instance.IsGamePlaying() && waitingRecipeSOList.Count < deliveryManagerInCounterList.Count + 1 && CanSpawnCustomerOnDeliveryCounter())
             {
                 RecipeSO waitingRecipeSO = recipeListSO.recipeSOList[UnityEngine.Random.Range(0, recipeListSO.recipeSOList.Count)];
-                SpawnCustomerOnDeliveryCounter();
+                SpawnCustomerOnDeliveryCounter(waitingRecipeSO.customerIconSprite);
                 waitingRecipeSOList.Add(waitingRecipeSO);
-                OnRecipeSpawned?.Invoke(this, new OnRecipeSpawnedEventArgs
-                {
-                    counterNumber = deliveryCounter.GetCounterNumber()
-                });
+                OnRecipeSpawned?.Invoke(this, EventArgs.Empty);
             }
         }
     }
@@ -74,9 +58,10 @@ public class DeliveryManager : MonoBehaviour
         }
     }
 
-    private void SpawnCustomerOnDeliveryCounter()
+    private void SpawnCustomerOnDeliveryCounter(Sprite customerIconSprite)
     {
         deliveryCounter.SpawnCustomer();
+        deliveryCounter.SetCounterSprite(customerIconSprite);
     }
 
     public List<RecipeSO> GetWaitingRecipeSOList()
@@ -111,10 +96,7 @@ public class DeliveryManager : MonoBehaviour
 
     public void FireOnDeliveryManagerCompletedEvent()
     {
-        OnRecipeCompeleted?.Invoke(this, new OnRecipeCompeletedEventArgs
-        {
-            counterNumber = deliveryCounter.GetCounterNumber()
-        });
+        OnRecipeCompeleted?.Invoke(this, EventArgs.Empty);
     }
 
 }

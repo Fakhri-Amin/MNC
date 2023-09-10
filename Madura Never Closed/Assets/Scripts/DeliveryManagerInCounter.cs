@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class DeliveryManagerInCounter : MonoBehaviour
@@ -9,12 +10,11 @@ public class DeliveryManagerInCounter : MonoBehaviour
     public event EventHandler OnRecipeSuccess;
     public event EventHandler OnRecipeFailed;
     [SerializeField] private GameObject customerVisual;
-    [SerializeField] private TMP_Text counterNumberText;
+    [SerializeField] private Image customerIconSprite;
 
     private List<RecipeSO> waitingRecipeSOList;
     private Vector3 customerStartPosition;
     private GameObject customer;
-    private int counterNumber;
 
 
     // Start is called before the first frame update
@@ -22,7 +22,7 @@ public class DeliveryManagerInCounter : MonoBehaviour
     {
         customerStartPosition = customerVisual.transform.position;
         customerVisual.SetActive(false);
-        counterNumberText.text = counterNumber.ToString();
+        RemoveCustomer();
     }
 
     public void DeliverRecipe(PlateProductObject plateProductObject)
@@ -77,14 +77,15 @@ public class DeliveryManagerInCounter : MonoBehaviour
         RemoveCustomer();
     }
 
-    public void SetCounterNumber(int counterNumber)
+    public void SetCounterSprite(Sprite customerIconSprite)
     {
-        this.counterNumber = counterNumber;
+        this.customerIconSprite.color = Color.white;
+        this.customerIconSprite.sprite = customerIconSprite;
     }
 
-    public int GetCounterNumber()
+    public Sprite GetCounterNumber()
     {
-        return counterNumber;
+        return customerIconSprite.sprite;
     }
 
     public void SpawnCustomer()
@@ -96,6 +97,8 @@ public class DeliveryManagerInCounter : MonoBehaviour
     {
         customer = null;
         customerVisual.SetActive(false);
+        SetCounterSprite(null);
+        customerIconSprite.color = Color.clear;
     }
 
     public bool IsCustomerEmpty()

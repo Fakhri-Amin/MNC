@@ -8,4 +8,5 @@ public class RecipeSO : ScriptableObject
     public List<ProductObjectSO> productObjectSOList;
     public string recipeName;
     public GameObject prefab;
+    public Sprite customerIconSprite;
 }

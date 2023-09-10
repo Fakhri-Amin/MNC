@@ -17,3 +17,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0fbd9c643ac85f64a975843dd3068ee4, type: 2}
   recipeName: Bocil
   prefab: {fileID: 6475539167661361592, guid: 2b924304441dd1245a56abf7a108c95c, type: 3}
+  customerIconSprite: {fileID: 21300000, guid: ac4dc906b64c71846900e7ca588728ff, type: 3}

@@ -20,19 +20,17 @@ public class DeliveryManagerUI : MonoBehaviour
         UpdateVisual();
     }
 
-
-
-    private void DeliveryManager_OnRecipeSpawned(object sender, DeliveryManager.OnRecipeSpawnedEventArgs e)
+    private void DeliveryManager_OnRecipeCompeleted(object sender, EventArgs e)
     {
-        UpdateVisual(e.counterNumber);
+        UpdateVisual();
     }
 
-    private void DeliveryManager_OnRecipeCompeleted(object sender, DeliveryManager.OnRecipeCompeletedEventArgs e)
+    private void DeliveryManager_OnRecipeSpawned(object sender, EventArgs e)
     {
-        UpdateVisual(e.counterNumber);
+        UpdateVisual();
     }
 
-    private void UpdateVisual(int counterNumber = 0)
+    private void UpdateVisual()
     {
         foreach (Transform child in container)
         {
@@ -44,7 +42,7 @@ public class DeliveryManagerUI : MonoBehaviour
         {
             Transform recipeTransform = Instantiate(recipeTemplate, container);
             recipeTransform.gameObject.SetActive(true);
-            recipeTransform.GetComponent<DeliveryManagerSingleUI>().SetRecipeSO(recipeSO, counterNumber);
+            recipeTransform.GetComponent<DeliveryManagerSingleUI>().SetRecipeSO(recipeSO);
         }
     }
 }
