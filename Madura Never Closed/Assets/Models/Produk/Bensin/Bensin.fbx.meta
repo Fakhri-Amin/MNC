@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5c1d4d2c6e47ca9429d10bb37f23378f
+guid: d803f6fa45a5e6140ae3d9fc058082f6
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -7,13 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material
-    second: {fileID: 2100000, guid: c46f3fdc133d1234e82a1bd1f220b4c7, type: 2}
+      name: isi bensin
+    second: {fileID: 2100000, guid: 07b5e9c2af6459948b7b5f5250fd72c6, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material.001
-    second: {fileID: 2100000, guid: b00e14d312a5aa244a994ed2c434effb, type: 2}
+      name: kaca
+    second: {fileID: 2100000, guid: 5a297e14fc5148a4c88df5b9523cd773, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
