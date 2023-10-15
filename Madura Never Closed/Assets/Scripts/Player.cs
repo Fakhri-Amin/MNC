@@ -18,8 +18,10 @@ public class Player : MonoBehaviour, IProductObjectParent
     [SerializeField] private float rotateSpeed = 10f;
     [SerializeField] private LayerMask countersLayerMask;
     [SerializeField] private Transform productObjectHoldPoint;
-
+    [SerializeField] private ManaMovement manaMovementScript;
+    
     private bool isWalking;
+    private float speedMultiplier = 1.0f;
     private Vector3 lastInteractDir;
     private BaseCounter selectedCounter;
     private ProductObject productObject;
@@ -100,6 +102,8 @@ public class Player : MonoBehaviour, IProductObjectParent
 
     private void HandleMovement()
     {
+        moveSpeed *= speedMultiplier;
+        
         Vector2 inputVector = GameInput.Instance.GetMovementVectorNormalized();
 
         if (inputVector == Vector2.zero)
@@ -114,7 +118,7 @@ public class Player : MonoBehaviour, IProductObjectParent
         float playerHeight = 2f;
         bool canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDir, moveDistance);
 
-        if (GetComponent<ManaMovement>().GetPlayerManaAmount() < 1)
+        if (manaMovementScript.GetPlayerManaAmount() < 1)
         {
             if (!canMove)
             {
@@ -149,12 +153,12 @@ public class Player : MonoBehaviour, IProductObjectParent
                 }
             }
         }
-        if (GetComponent<ManaMovement>().GetPlayerManaAmount() > 0)
+        if (manaMovementScript.GetPlayerManaAmount() > 0)
         {
             if (canMove)
             {
                 transform.position += moveDir * moveDistance;
-                GetComponent<ManaMovement>().DecreasePlayerMana();
+                manaMovementScript.DecreasePlayerMana();
             }
         }
 
@@ -201,5 +205,17 @@ public class Player : MonoBehaviour, IProductObjectParent
     public bool HasProductObject()
     {
         return productObject != null;
+    }
+
+    public void IncreaseSpeed(float amount)
+    {
+        //+10% movement speed
+        speedMultiplier = amount;
+    }
+
+    public void ResetSpeed()
+    {
+        //Reset speed to normal
+        speedMultiplier = 1.0f;
     }
 }

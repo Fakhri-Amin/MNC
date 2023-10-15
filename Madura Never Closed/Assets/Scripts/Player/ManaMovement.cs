@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,8 +16,7 @@ public class ManaMovement : MonoBehaviour
     {
         manaAmount = manaAmountMax;
     }
-
-
+    
     private void Update()
     {
         //Debug.Log(manaAmount);
@@ -32,6 +33,14 @@ public class ManaMovement : MonoBehaviour
         manaAmount += manaSleep;
         manaAmount = Mathf.Clamp(manaAmount, 0, manaAmountMax);
         manaBar.fillAmount = manaAmount / manaAmountMax;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Kandang Macan"))
+        {
+            IncreasePlayerSleepAmount(1);
+        }
     }
 
     public float GetPlayerManaAmount()

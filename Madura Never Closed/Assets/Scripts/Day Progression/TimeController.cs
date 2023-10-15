@@ -59,7 +59,7 @@ public class TimeController : MonoBehaviour
             timeText.text = currentTime.ToString("HH:mm");
         }
         
-        UpdateProgressBar();
+        //UpdateProgressBar();
     }
 
     private void UpdateProgressBar()
